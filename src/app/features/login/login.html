@@ -1,0 +1,67 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Create Account</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Account Name -->
+    <div class="mb-3">
+      <label for="accountName" class="form-label">Account name</label>
+      <input
+        id="accountName"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="showError('accountName')"
+        formControlName="accountName" />
+      <div class="invalid-feedback" *ngIf="showError('accountName')">
+        <div *ngIf="f.accountName.errors?.['required']">Required.</div>
+        <div *ngIf="f.accountName.errors?.['minlength']">Min 3 chars.</div>
+        <div *ngIf="f.accountName.errors?.['maxlength']">Max 30 chars.</div>
+      </div>
+    </div>
+
+    <!-- Initial Balance -->
+    <div class="mb-3">
+      <label for="initialBalance" class="form-label">Initial balance</label>
+      <input
+        id="initialBalance"
+        type="number"
+        class="form-control"
+        [class.is-invalid]="showError('initialBalance')"
+        formControlName="initialBalance"
+        min="0" />
+      <div class="invalid-feedback" *ngIf="showError('initialBalance')">
+        <div *ngIf="f.initialBalance.errors?.['required']">Required.</div>
+        <div *ngIf="f.initialBalance.errors?.['min']">Cannot be negative.</div>
+      </div>
+    </div>
+
+    <!-- Account Type Radios -->
+    <div class="mb-3">
+      <label class="form-label">Account type</label>
+      <div class="form-check">
+        <input type="radio" id="chequing" value="Chequing" class="form-check-input" formControlName="accountType" />
+        <label for="chequing" class="form-check-label">Chequing</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" id="savings" value="Savings" class="form-check-input" formControlName="accountType" />
+        <label for="savings" class="form-check-label">Savings</label>
+      </div>
+    </div>
+
+    <!-- Conditional Button color via Bootstrap -->
+    <button
+      type="submit"
+      class="btn"
+      [ngClass]="{
+        'btn-primary': f.accountType.value === 'Chequing',
+        'btn-success': f.accountType.value === 'Savings'
+      }"
+      [disabled]="form.invalid && submitted">
+      Create Account
+    </button>
+
+    <!-- Optional helper note -->
+    <div *ngIf="f.accountType.value === 'Savings'" class="form-text mt-2">
+      Heads-up: Savings accounts may have withdrawal limits.
+    </div>
+  </form>
+</div>
