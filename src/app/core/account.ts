@@ -6,7 +6,7 @@ export interface Account {
   name: string;
   type: AccountType;
   balance: number;
-  history: { at: string; kind: 'create' | 'transfer-in' | 'transfer-out'; amount: number }[];
+  history: { at: string; kind: 'create' | 'transfer'; to?: string; amount: number }[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class AccountService {
       name,
       type,
       balance: initialBalance,
-      history: [{ at: new Date().toISOString(), kind: 'create', amount: initialBalance }],
+      history: [{ at: new Date().toISOString(), kind: 'create', to: 'N/A', amount: initialBalance }],
     };
     this.accounts.push(acct);
     return acct;
@@ -47,8 +47,7 @@ export class AccountService {
     to.balance   += amount;
   
     const ts = new Date().toISOString();
-    from.history.push({ at: ts, kind: 'transfer-out', amount });
-    to.history.push({ at: ts, kind: 'transfer-in',  amount });
+    from.history.push({ at: ts, kind: 'transfer', to: to.name, amount });
   
     return { from, to };
   }

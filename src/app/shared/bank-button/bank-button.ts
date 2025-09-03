@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 type AccountType = 'Chequing' | 'Savings';
@@ -16,7 +17,8 @@ type AccountType = 'Chequing' | 'Savings';
       (click)="clicked.emit($event)">
       <ng-content></ng-content>
     </button>
-  `
+  `,
+  imports: [NgClass],
 })
 export class BankButtonComponent {
   /** Optional override; otherwise color derives from accountType */

@@ -3,7 +3,7 @@
 
   <div class="row mb-3">
     <div class="col-sm-6">
-      <input type="text" class="form-control" [formControl]="filter" placeholder="Filter by account or type..." />
+      <input type="text" class="form-control" [formControl]="filterCtrl" placeholder="Filter by account or type..." />
     </div>
   </div>
 
@@ -12,6 +12,7 @@
       <tr>
         <th>Account</th>
         <th>Type</th>
+        <th>Recipient</th>
         <th class="text-end">Amount</th>
         <th>When</th>
       </tr>
@@ -20,6 +21,7 @@
       <tr *ngFor="let r of filtered()">
         <td>{{ r.account }}</td>
         <td class="text-capitalize">{{ r.type.replace('-', ' ') }}</td>
+        <td>{{ r.to }}</td>
         <td class="text-end">{{ r.amount | number:'1.2-2' }}</td>
         <td>{{ r.at | date:'medium' }}</td>
       </tr>
