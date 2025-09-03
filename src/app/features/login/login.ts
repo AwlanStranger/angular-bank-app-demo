@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // ✅
+import { AccountService, AccountType } from '../../core/account'; // adjust path if needed
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,15 @@ export class LoginComponent {
   submitted = false; // ✅ track submit attempt
   form;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private accounts: AccountService
+  ) {
     this.form = this.fb.group({
       accountName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       initialBalance: [0, [Validators.required, Validators.min(0)]],
-      accountType: ['Chequing', [Validators.required]],
+      accountType: ['Chequing' as AccountType, [Validators.required]],
     });
   }
 
@@ -31,8 +36,12 @@ export class LoginComponent {
 
   submit() {
     this.submitted = true;               // ✅ ensure errors can show immediately
-    if (this.form.invalid) return;       // don’t navigate if invalid
-    // TODO: store account (spec wants FormBuilder + validators + UI) :contentReference[oaicite:0]{index=0}
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const { accountName, accountType, initialBalance } = this.form.value!;
+    this.accounts.create(accountName!, accountType!, Number(initialBalance));
     this.router.navigateByUrl('/dashboard');
   }
 }

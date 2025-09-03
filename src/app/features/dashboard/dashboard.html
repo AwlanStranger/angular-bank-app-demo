@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<div class="container mt-5">
+  <h1 class="mb-4">Accounts</h1>
+  <table class="table table-striped" *ngIf="accounts().length; else empty">
+    <thead>
+      <tr>
+        <th>Name</th><th>Type</th><th class="text-end">Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of accounts()">
+        <td>{{ a.name }}</td>
+        <td>{{ a.type }}</td>
+        <td class="text-end">{{ a.balance | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #empty>
+    <div class="alert alert-info">No accounts yet. Create one on the login page.</div>
+  </ng-template>
+</div>

@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AccountService, Account } from '../../core/account';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css'
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './dashboard.html'
 })
-export class Dashboard {
-
+export class DashboardComponent {
+  accounts = signal<Account[]>([]);
+  constructor(private svc: AccountService) {
+    this.accounts.set(this.svc.all());
+  }
 }

@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./features/dashboard/dashboard').then(m => m.Dashboard),
+      import('./features/dashboard/dashboard').then(m => m.DashboardComponent),
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', redirectTo: 'login' },
