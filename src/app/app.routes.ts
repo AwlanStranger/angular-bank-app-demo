@@ -8,12 +8,15 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () =>
-      import('./features/dashboard/dashboard').then(m => m.DashboardComponent),
+    loadComponent: () => import('./features/dashboard/dashboard').then(m => m.DashboardComponent),
   },
   {
     path: 'transfer',
     loadComponent: () => import('./features/transfer/transfer').then(m => m.TransferComponent),
+  },
+  {
+    path: 'history',
+    loadComponent: () => import('./features/history/history').then(m => m.HistoryComponent),
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', redirectTo: 'login' },
