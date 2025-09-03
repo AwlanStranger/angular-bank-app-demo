@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Transfer Funds</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- From account -->
+    <div class="mb-3">
+      <label for="fromId" class="form-label">From</label>
+      <select id="fromId" class="form-select"
+              [class.is-invalid]="showError('fromId')"
+              formControlName="fromId">
+        <option value="" disabled>Select account</option>
+        <option *ngFor="let a of accounts()" [value]="a.id">
+          {{ a.name }} ({{ a.type }}) — {{ a.balance | number:'1.2-2' }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="showError('fromId')">Required.</div>
+    </div>
+
+    <!-- To account -->
+    <div class="mb-3">
+      <label for="toId" class="form-label">To</label>
+      <select id="toId" class="form-select"
+              [class.is-invalid]="showError('toId')"
+              formControlName="toId">
+        <option value="" disabled>Select account</option>
+        <option *ngFor="let a of accounts()" [value]="a.id">
+          {{ a.name }} ({{ a.type }}) — {{ a.balance | number:'1.2-2' }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="showError('toId')">Required.</div>
+    </div>
+
+    <!-- Amount -->
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input id="amount" type="number" class="form-control"
+             min="0.01" step="0.01"
+             [class.is-invalid]="showError('amount')"
+             formControlName="amount" />
+      <div class="invalid-feedback" *ngIf="showError('amount')">
+        <div *ngIf="f.amount.errors?.['required']">Required.</div>
+        <div *ngIf="f.amount.errors?.['min']">Must be greater than 0.</div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary"
+            [disabled]="form.invalid || f.fromId.value === f.toId.value">
+      Transfer
+    </button>
+
+    <div class="form-text mt-2" *ngIf="f.fromId.value && f.toId.value && f.fromId.value === f.toId.value">
+      Choose two different accounts.
+    </div>
+  </form>
+</div>
