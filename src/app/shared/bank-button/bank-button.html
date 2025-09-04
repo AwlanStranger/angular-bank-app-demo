@@ -5,6 +5,12 @@
     'btn-primary': variant === 'Primary' || variant === 'Chequing',
     'btn-success': variant === 'Success',
     'btn-info': variant === 'Info' || variant === 'Savings',
+    'btn-warning': variant === 'Warning',
+    'btn-danger': variant === 'Danger',
+    'btn-secondary': variant === 'Secondary',
+    'btn-light': variant === 'Light',
+    'btn-dark': variant === 'Dark',
+    'btn-link': variant === 'Link'
   }"
   [disabled]="disabled"
   (click)="clicked.emit($event)">
