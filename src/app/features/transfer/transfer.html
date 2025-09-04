@@ -44,10 +44,13 @@
     </div>
 
     <!-- Submit -->
-    <button type="submit" class="btn btn-primary"
-            [disabled]="form.invalid || f.fromId.value === f.toId.value">
+    <app-bank-button
+      type="submit"
+      [variant]="'Primary'"
+      [disabled]="form.invalid || f.fromId.value === f.toId.value">
       Transfer
-    </button>
+    </app-bank-button>
+
 
     <div class="form-text mt-2" *ngIf="f.fromId.value && f.toId.value && f.fromId.value === f.toId.value">
       Choose two different accounts.

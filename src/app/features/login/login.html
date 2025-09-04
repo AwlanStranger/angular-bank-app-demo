@@ -48,20 +48,16 @@
     </div>
 
     <!-- Conditional Button color via Bootstrap -->
-    <button
+    <app-bank-button
       type="submit"
-      class="btn"
-      [ngClass]="{
-        'btn-primary': f.accountType.value === 'Chequing',
-        'btn-success': f.accountType.value === 'Savings'
-      }"
+      [variant]="f.accountType.value ?? undefined"
       [disabled]="form.invalid && submitted">
       Create Account
-    </button>
+    </app-bank-button>
 
     <!-- Optional helper note -->
     <div *ngIf="f.accountType.value === 'Savings'" class="form-text mt-2">
-      Heads-up: Savings accounts may have withdrawal limits.
+      Notice: Savings accounts may have withdrawal limits.
     </div>
   </form>
 </div>

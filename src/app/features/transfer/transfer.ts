@@ -2,11 +2,12 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AccountService, Account } from '../../core/account';
+import { SharedModule } from '../../shared/shared-module';
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SharedModule],
   templateUrl: './transfer.html'
 })
 export class TransferComponent {

@@ -1,1 +1,12 @@
-<p>bank-button works!</p>
+<button
+  [attr.type]="type"
+  class="btn"
+  [ngClass]="{
+    'btn-primary': variant === 'Primary' || variant === 'Chequing',
+    'btn-success': variant === 'Success',
+    'btn-info': variant === 'Info' || variant === 'Savings',
+  }"
+  [disabled]="disabled"
+  (click)="clicked.emit($event)">
+  <ng-content></ng-content>
+</button>

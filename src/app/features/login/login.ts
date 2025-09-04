@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // ✅
 import { AccountService, AccountType } from '../../core/account'; // adjust path if needed
+import { SharedModule } from '../../shared/shared-module';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // ✅ brings *ngIf, [ngClass], etc.
+  imports: [ReactiveFormsModule, CommonModule, SharedModule], // ✅ brings *ngIf, [ngClass], etc.
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
 })

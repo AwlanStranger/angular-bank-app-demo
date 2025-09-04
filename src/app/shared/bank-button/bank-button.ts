@@ -1,31 +1,18 @@
-import { NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 type AccountType = 'Chequing' | 'Savings';
+type ButtonType = 'Primary' | 'Success' | 'Danger' | 'Warning' | 'Info' | 'Light' | 'Dark';
 
 @Component({
   selector: 'app-bank-button',
-  template: `
-    <button
-      [attr.type]="type"
-      class="btn"
-      [ngClass]="{
-        'btn-primary': variant === 'primary' || accountType === 'Chequing',
-        'btn-success': variant === 'success' || accountType === 'Savings'
-      }"
-      [disabled]="disabled"
-      (click)="clicked.emit($event)">
-      <ng-content></ng-content>
-    </button>
-  `,
-  imports: [NgClass],
+  templateUrl: './bank-button.html',
+  styleUrls: ['./bank-button.css'],
+  imports: [CommonModule],
 })
 export class BankButtonComponent {
-  /** Optional override; otherwise color derives from accountType */
-  @Input() variant: 'primary' | 'success' | undefined;
-  @Input() accountType: AccountType | undefined;
+  @Input() variant: AccountType | ButtonType | undefined;
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' = 'button';
-
   @Output() clicked = new EventEmitter<Event>();
 }
